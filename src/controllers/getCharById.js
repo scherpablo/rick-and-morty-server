@@ -1,8 +1,13 @@
 const axios = require("axios");
+const dotenv = require("dotenv");
+
+dotenv.config();
 
 const urlApi = process.env.URL_API;
 
-const getCharById = (id, res) => {
+const getCharById = (req, res) => {
+  const id = req.params.id;
+
   axios
     .get(`${urlApi}/character/${id}`)
     .then((response) => {

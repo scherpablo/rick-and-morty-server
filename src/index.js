@@ -12,7 +12,8 @@ const server = http.createServer((req, res) => {
   if (pathname.startsWith("/rickandmorty/character")) {
     const parts = pathname.split("/");
     const id = parseInt(parts[3]);
-    return getCharById(id, res);
+    req.params = { id };
+    return getCharById(req, res);
   }
 });
 
