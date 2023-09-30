@@ -6,28 +6,27 @@ dotenv.config();
 const urlApi = process.env.URL_API;
 
 const getCharById = (req, res) => {
-  const id = req.params.id;
+  const { id } = req.params;
 
-  axios
-    .get(`${urlApi}/character/${id}`)
-    .then((response) => {
-      const { name, gender, species, origin, image, status } = response.data;
-      const character = {
-        id,
-        name,
-        gender,
-        species,
-        origin: origin.name,
-        image,
-        status,
-      };
-      res.writeHead(200, { "Content-Type": "application/json" });
-      return res.end(JSON.stringify(character));
-    })
-    .catch((error) => {
-      res.writeHead(500, { "Content-Type": "text/plain" });
-      return res.end({message: "Ruta no encontrada BACK"});
-    });
+  axios(urlApi + id)
+  .then(({data}) => {
+    const { name, gender, species, origin, image, status } = data;
+    const character = {
+      id,
+      name,
+      gender,
+      species,
+      origin: origin.name,
+      image,
+      status,
+    };
+    return character.id
+    ? res.json(character)
+    : res.status(404).send({message: "Not Found"})
+  })
+  .catch((error)=> {
+    return res.status(500).send(error.message)
+  })
 };
 
 module.exports = getCharById;
