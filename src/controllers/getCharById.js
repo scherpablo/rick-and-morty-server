@@ -6,26 +6,6 @@ dotenv.config();
 const urlApi = process.env.URL_API;
 
 const getCharById = async (req, res) => {
-  // axios(urlApi + id)
-  // .then(({data}) => {
-  //   const { name, gender, species, origin, image, status } = data;
-  //   const character = {
-  //     id,
-  //     name,
-  //     gender,
-  //     species,
-  //     origin: origin.name,
-  //     image,
-  //     status,
-  //   };
-  //   return character.id
-  //   ? res.json(character)
-  //   : res.status(404).send({message: "Not Found"})
-  // })
-  // .catch((error)=> {
-  //   return res.status(500).send(error.message)
-  // })
-
   const { id } = req.params;
 
   try {
